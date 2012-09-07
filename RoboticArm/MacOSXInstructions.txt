@@ -1,0 +1,3 @@
+Run via
+
+java -jar <Jar_File> -XstartOnFirstThread
