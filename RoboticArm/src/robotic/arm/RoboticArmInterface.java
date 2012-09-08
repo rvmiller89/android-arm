@@ -128,7 +128,7 @@ public class RoboticArmInterface {
 		button_4.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseDown(MouseEvent arg0) {
-                    scheduleTask(new Motor(3, Direction.FORWARD));
+                    scheduleTask(new Motor(2, Direction.FORWARD));
             }
 
             @Override
@@ -143,7 +143,7 @@ public class RoboticArmInterface {
 		button_5.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseDown(MouseEvent arg0) {
-                    scheduleTask(new Motor(3, Direction.BACKWARD));
+                    scheduleTask(new Motor(2, Direction.BACKWARD));
             }
 
             @Override
@@ -152,17 +152,13 @@ public class RoboticArmInterface {
             }
 		});
 		
-		Label label_2 = new Label(composite, SWT.NONE);
-		label_2.setImage(SWTResourceManager.getImage("res/arm_transparent.png"));
-		label_2.setBounds(11, 48, 450, 314);
-		
 		Button button_6 = new Button(composite, SWT.NONE);
 		button_6.setText("Up");
 		button_6.setBounds(323, 50, 53, 30);
 		button_6.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseDown(MouseEvent arg0) {
-                    scheduleTask(new Motor(2, Direction.FORWARD));
+                    scheduleTask(new Motor(3, Direction.FORWARD));
             }
 
             @Override
@@ -177,7 +173,7 @@ public class RoboticArmInterface {
 		button_7.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseDown(MouseEvent arg0) {
-                    scheduleTask(new Motor(2, Direction.BACKWARD));
+                    scheduleTask(new Motor(3, Direction.BACKWARD));
             }
 
             @Override
@@ -233,6 +229,10 @@ public class RoboticArmInterface {
 		speedSelector_1.setSelection(75);
 		speedSelector_1.setPageIncrement(1);
 		speedSelector_1.setBounds(410, 395, 51, 22);
+		
+		Label label_2 = new Label(composite, SWT.NONE);
+		label_2.setImage(SWTResourceManager.getImage("res/arm_transparent.png"));
+		label_2.setBounds(11, 48, 450, 314);
 		
 		TabItem tbtmServerConfiguration = new TabItem(tabFolder, SWT.NONE);
 		tbtmServerConfiguration.setText("Server Configuration");
