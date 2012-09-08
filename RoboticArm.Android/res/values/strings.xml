@@ -1,8 +1,11 @@
 <resources>
 
-    <string name="app_name">RoboticArm</string>
+    <string name="app_name">Robotic Arm</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
-    <string name="title_activity_main">Robotic Arm</string>
+    <string name="title_activity_main">Server Login</string>
+    <string name="title_activity_control">Control</string>
+    <string name="server_value">server_value</string>
+    <string name="port_value">port_value</string>
 
 </resources>
