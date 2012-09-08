@@ -1,4 +1,4 @@
-package project;
+package robotic.arm;
 
 public class Motor {
 	public int id;

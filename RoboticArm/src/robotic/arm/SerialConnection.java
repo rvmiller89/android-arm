@@ -1,4 +1,4 @@
-package project;
+package robotic.arm;
 
 import java.io.IOException;
 import java.io.InputStream;

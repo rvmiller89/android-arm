@@ -1,4 +1,4 @@
-package project;
+package robotic.arm;
 
 import java.net.*;
 import java.io.*;

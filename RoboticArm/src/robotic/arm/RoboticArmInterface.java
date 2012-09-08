@@ -1,4 +1,4 @@
-package project;
+package robotic.arm;
 
 import java.util.Timer;
 
@@ -12,7 +12,7 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Spinner;
 
-import project.Motor.Direction;
+import robotic.arm.Motor.Direction;
 
 public class RoboticArmInterface {
 	private Spinner speedSelector;

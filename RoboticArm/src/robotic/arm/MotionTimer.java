@@ -1,8 +1,9 @@
-package project;
+package robotic.arm;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import project.RoboticArm;
+
+import robotic.arm.RoboticArm;
 
 //Timer timer = new Timer();
 //TimerTask task = new MyTimerTask();

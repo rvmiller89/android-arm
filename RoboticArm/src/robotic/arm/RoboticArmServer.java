@@ -1,4 +1,4 @@
-package project;
+package robotic.arm;
 
 import java.io.*;
 import java.net.*;
@@ -33,9 +33,9 @@ public class RoboticArmServer {
 					
 					while (true)
 					{
-						String line = in.nextLine();
-						System.out.println("Recvd: " + line);
-						if (line.trim().equals("disconnect"))
+						String input = in.next();
+						System.out.println("Recvd: " + input);
+						if (input.trim().equals("disconnect"))
 							break;
 					}
 				}
