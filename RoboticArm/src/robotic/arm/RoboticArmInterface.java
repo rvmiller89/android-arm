@@ -13,11 +13,18 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Spinner;
 
 import robotic.arm.Motor.Direction;
+import org.eclipse.swt.widgets.TabFolder;
+import org.eclipse.swt.widgets.TabItem;
+import org.eclipse.swt.custom.ViewForm;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Text;
 
 public class RoboticArmInterface {
-	private Spinner speedSelector;
 	private MotionTimer task;
+	private Spinner speedSelector_1;
 	protected Shell shlRoboticArmInterface;
+	private Text textfieldPort;
+	private Label lblServerStatus;
 
 	/**
 	 * Open the window.
@@ -33,17 +40,22 @@ public class RoboticArmInterface {
 			}
 		}
 	}
-
+	
 	/**
-	 * Schedules an event to move the motor according to the byte-encoded
-	 * message
-	 * 
-	 * @param msg
-	 */
-	public void scheduleTask(Motor motor) {
-		task = new MotionTimer(motor, Integer.parseInt(speedSelector.getText()));
-		task.start();
-	}
+     * Schedules an event to move the motor according to the byte-encoded
+     * message
+     * 
+     * @param Motor
+     */
+    public void scheduleTask(Motor motor) {
+    		try	{
+	            task = new MotionTimer(motor, Integer.parseInt(speedSelector_1.getText()));
+	            task.start();
+    		}
+    		catch (Exception e)	{
+    	
+    		}
+    }
 
 	/**
 	 * Create contents of the window.
@@ -52,175 +64,216 @@ public class RoboticArmInterface {
 	 */
 	protected void createContents() {
 		shlRoboticArmInterface = new Shell();
-		shlRoboticArmInterface.setSize(500, 460);
+		shlRoboticArmInterface.setSize(507, 544);
 		shlRoboticArmInterface.setText("Robotic Arm Interface");
+		
+		TabFolder tabFolder = new TabFolder(shlRoboticArmInterface, SWT.NONE);
+		tabFolder.setBounds(10, 10, 487, 502);
+		
+		TabItem tbtmControl = new TabItem(tabFolder, SWT.NONE);
+		tbtmControl.setText("Control");
+		
+		Composite composite = new Composite(tabFolder, SWT.NONE);
+		tbtmControl.setControl(composite);
+		
+		Label label = new Label(composite, SWT.NONE);
+		label.setText("Motor 4");
+		label.setBounds(126, 10, 59, 14);
+		
+		Button button = new Button(composite, SWT.NONE);
+		button.setText("Up");
+		button.setBounds(96, 21, 53, 30);
+		button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseDown(MouseEvent arg0) {
+                    scheduleTask(new Motor(4, Direction.FORWARD));
+            }
 
-		Button motor4Up = new Button(shlRoboticArmInterface, SWT.NONE);
-		motor4Up.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseUp(MouseEvent arg0) {
+                    task.stop();
+            }
+		});
+		
+		Button button_1 = new Button(composite, SWT.NONE);
+		button_1.setText("Down");
+		button_1.setBounds(145, 21, 70, 30);
+		button_1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseDown(MouseEvent arg0) {
+                    scheduleTask(new Motor(4, Direction.BACKWARD));
+            }
+
+            @Override
+            public void mouseUp(MouseEvent arg0) {
+                    task.stop();
+            }
+		});
+		
+		Button button_2 = new Button(composite, SWT.NONE);
+		button_2.setText("Open");
+		button_2.setBounds(0, 72, 70, 30);
+		
+		Button button_3 = new Button(composite, SWT.NONE);
+		button_3.setText("Close");
+		button_3.setBounds(0, 95, 70, 30);
+		
+		Label label_1 = new Label(composite, SWT.NONE);
+		label_1.setText("Motor 2");
+		label_1.setBounds(135, 185, 59, 14);
+		
+		Button button_4 = new Button(composite, SWT.NONE);
+		button_4.setText("Up");
+		button_4.setBounds(135, 198, 53, 30);
+		button_4.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseDown(MouseEvent arg0) {
+                    scheduleTask(new Motor(3, Direction.FORWARD));
+            }
+
+            @Override
+            public void mouseUp(MouseEvent arg0) {
+                    task.stop();
+            }
+		});
+		
+		Button button_5 = new Button(composite, SWT.NONE);
+		button_5.setText("Down");
+		button_5.setBounds(126, 220, 70, 30);
+		button_5.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseDown(MouseEvent arg0) {
+                    scheduleTask(new Motor(3, Direction.BACKWARD));
+            }
+
+            @Override
+            public void mouseUp(MouseEvent arg0) {
+                    task.stop();
+            }
+		});
+		
+		Label label_2 = new Label(composite, SWT.NONE);
+		label_2.setImage(SWTResourceManager.getImage("res/arm_transparent.png"));
+		label_2.setBounds(11, 48, 450, 314);
+		
+		Button button_6 = new Button(composite, SWT.NONE);
+		button_6.setText("Up");
+		button_6.setBounds(323, 50, 53, 30);
+		button_6.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseDown(MouseEvent arg0) {
+                    scheduleTask(new Motor(2, Direction.FORWARD));
+            }
+
+            @Override
+            public void mouseUp(MouseEvent arg0) {
+                    task.stop();
+            }
+		});
+		
+		Button button_7 = new Button(composite, SWT.NONE);
+		button_7.setText("Down");
+		button_7.setBounds(355, 72, 70, 30);
+		button_7.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseDown(MouseEvent arg0) {
+                    scheduleTask(new Motor(2, Direction.BACKWARD));
+            }
+
+            @Override
+            public void mouseUp(MouseEvent arg0) {
+                    task.stop();
+            }
+		});
+		
+		Label label_3 = new Label(composite, SWT.NONE);
+		label_3.setText("Motor 3");
+		label_3.setBounds(382, 50, 59, 14);
+		
+		Button button_8 = new Button(composite, SWT.NONE);
+		button_8.setText("Left");
+		button_8.setBounds(181, 368, 53, 30);
+		button_8.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseDown(MouseEvent arg0) {
+                    scheduleTask(new Motor(1, Direction.BACKWARD));
+            }
+
+            @Override
+            public void mouseUp(MouseEvent arg0) {
+                    task.stop();
+            }
+		});
+		
+		Button button_9 = new Button(composite, SWT.NONE);
+		button_9.setText("Right");
+		button_9.setBounds(230, 368, 70, 30);
+		button_9.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseDown(MouseEvent arg0) {
+                    scheduleTask(new Motor(1, Direction.FORWARD));
+            }
+
+            @Override
+            public void mouseUp(MouseEvent arg0) {
+                    task.stop();
+            }
+		});
+		
+		Label label_4 = new Label(composite, SWT.NONE);
+		label_4.setText("Motor 1");
+		label_4.setBounds(191, 400, 59, 14);
+		
+		Label label_5 = new Label(composite, SWT.NONE);
+		label_5.setText("Speed:");
+		label_5.setBounds(355, 400, 51, 14);
+		
+		speedSelector_1 = new Spinner(composite, SWT.BORDER);
+		speedSelector_1.setTextLimit(3);
+		speedSelector_1.setSelection(75);
+		speedSelector_1.setPageIncrement(1);
+		speedSelector_1.setBounds(410, 395, 51, 22);
+		
+		TabItem tbtmServerConfiguration = new TabItem(tabFolder, SWT.NONE);
+		tbtmServerConfiguration.setText("Server Configuration");
+		
+		Composite composite_1 = new Composite(tabFolder, SWT.NONE);
+		tbtmServerConfiguration.setControl(composite_1);
+		
+		Label lblServerPort = new Label(composite_1, SWT.NONE);
+		lblServerPort.setBounds(114, 17, 66, 14);
+		lblServerPort.setText("Server Port:");
+		
+		textfieldPort = new Text(composite_1, SWT.BORDER);
+		textfieldPort.setText("1337");
+		textfieldPort.setBounds(186, 14, 64, 19);
+		
+		Button btnStartServer = new Button(composite_1, SWT.NONE);
+		btnStartServer.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent arg0) {
-				scheduleTask(new Motor(4, Direction.FORWARD));
-			}
-
-			@Override
-			public void mouseUp(MouseEvent arg0) {
-				task.stop();
-			}
-		});
-
-		motor4Up.setBounds(106, 21, 53, 30);
-		motor4Up.setText("Up");
-
-		Button motor4Down = new Button(shlRoboticArmInterface, SWT.NONE);
-		motor4Down.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseDown(MouseEvent arg0) {
-				scheduleTask(new Motor(4, Direction.BACKWARD));
-			}
-
-			@Override
-			public void mouseUp(MouseEvent arg0) {
-				task.stop();
+				
+				// Start the server class
+				RoboticArmServer server = new RoboticArmServer(Integer.parseInt(textfieldPort.getText()));
+				if (server.start())
+					lblServerStatus.setText("Server started");
+				else
+					lblServerStatus.setText("Unable to start");
+				
 			}
 		});
-
-		motor4Down.setText("Down");
-		motor4Down.setBounds(155, 21, 70, 30);
-
-		Button btnOpen = new Button(shlRoboticArmInterface, SWT.NONE);
-		btnOpen.setText("Open");
-		btnOpen.setBounds(10, 72, 70, 30);
-
-		Button btnClose = new Button(shlRoboticArmInterface, SWT.NONE);
-		btnClose.setText("Close");
-		btnClose.setBounds(10, 95, 70, 30);
-
-		Button motor3Up = new Button(shlRoboticArmInterface, SWT.NONE);
-		motor3Up.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseDown(MouseEvent arg0) {
-				scheduleTask(new Motor(3, Direction.FORWARD));
-			}
-
-			@Override
-			public void mouseUp(MouseEvent arg0) {
-				task.stop();
-			}
-		});
-
-		motor3Up.setText("Up");
-		motor3Up.setBounds(333, 50, 53, 30);
-
-		Button motor3Down = new Button(shlRoboticArmInterface, SWT.NONE);
-		motor3Down.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseDown(MouseEvent arg0) {
-				scheduleTask(new Motor(3, Direction.BACKWARD));
-			}
-
-			@Override
-			public void mouseUp(MouseEvent arg0) {
-				task.stop();
-			}
-		});
-
-		motor3Down.setText("Down");
-		motor3Down.setBounds(365, 72, 70, 30);
-
-		Button motor2Up = new Button(shlRoboticArmInterface, SWT.NONE);
-		motor2Up.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseDown(MouseEvent arg0) {
-				scheduleTask(new Motor(2, Direction.FORWARD));
-			}
-
-			@Override
-			public void mouseUp(MouseEvent arg0) {
-				task.stop();
-			}
-		});
-
-		motor2Up.setText("Up");
-		motor2Up.setBounds(145, 198, 53, 30);
-
-		Button motor2Down = new Button(shlRoboticArmInterface, SWT.NONE);
-		motor2Down.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseDown(MouseEvent arg0) {
-				scheduleTask(new Motor(2, Direction.BACKWARD));
-			}
-
-			@Override
-			public void mouseUp(MouseEvent arg0) {
-				task.stop();
-			}
-		});
-
-		motor2Down.setText("Down");
-		motor2Down.setBounds(136, 220, 70, 30);
-
-		Button motor1Left = new Button(shlRoboticArmInterface, SWT.NONE);
-
-		motor1Left.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseDown(MouseEvent arg0) {
-				scheduleTask(new Motor(1, Direction.BACKWARD));
-			}
-
-			@Override
-			public void mouseUp(MouseEvent arg0) {
-				task.stop();
-			}
-		});
-
-		motor1Left.setText("Left");
-		motor1Left.setBounds(191, 368, 53, 30);
-
-		Button motor1Right = new Button(shlRoboticArmInterface, SWT.NONE);
-		motor1Right.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseDown(MouseEvent arg0) {
-				scheduleTask(new Motor(1, Direction.FORWARD));
-			}
-
-			@Override
-			public void mouseUp(MouseEvent arg0) {
-				task.stop();
-			}
-		});
-
-		motor1Right.setText("Right");
-		motor1Right.setBounds(240, 368, 70, 30);
-
-		Label lblNewLabel = new Label(shlRoboticArmInterface, SWT.NONE);
-		lblNewLabel.setBounds(201, 400, 59, 14);
-		lblNewLabel.setText("Motor 1");
-
-		Label lblMotor = new Label(shlRoboticArmInterface, SWT.NONE);
-		lblMotor.setText("Motor 2");
-		lblMotor.setBounds(145, 185, 59, 14);
-
-		Label lblMotor_1 = new Label(shlRoboticArmInterface, SWT.NONE);
-		lblMotor_1.setText("Motor 3");
-		lblMotor_1.setBounds(392, 50, 59, 14);
-
-		Label label = new Label(shlRoboticArmInterface, SWT.NONE);
-		label.setImage(SWTResourceManager.getImage("res/arm_transparent.png"));
-		label.setBounds(21, 48, 450, 314);
-
-		Label lblMotor_2 = new Label(shlRoboticArmInterface, SWT.NONE);
-		lblMotor_2.setText("Motor 4");
-		lblMotor_2.setBounds(136, 10, 59, 14);
-
-		speedSelector = new Spinner(shlRoboticArmInterface, SWT.BORDER);
-		speedSelector.setTextLimit(3);
-		speedSelector.setSelection(75);
-		speedSelector.setPageIncrement(1);
-		speedSelector.setBounds(420, 395, 51, 22);
-
-		Label lblSpeed = new Label(shlRoboticArmInterface, SWT.NONE);
-		lblSpeed.setBounds(365, 400, 51, 14);
-		lblSpeed.setText("Speed:");
+		btnStartServer.setBounds(256, 10, 94, 28);
+		btnStartServer.setText("Start Server");
+		
+		Label label_6 = new Label(composite_1, SWT.HORIZONTAL);
+		label_6.setImage(SWTResourceManager.getImage("res/diagram.png"));
+		label_6.setBounds(10, 248, 450, 206);
+		
+		lblServerStatus = new Label(composite_1, SWT.NONE);
+		lblServerStatus.setAlignment(SWT.CENTER);
+		lblServerStatus.setFont(SWTResourceManager.getFont("Lucida Grande", 18, SWT.NORMAL));
+		lblServerStatus.setBounds(147, 46, 172, 49);
+		lblServerStatus.setText("Server Stopped");
 
 	}
 }
