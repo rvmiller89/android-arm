@@ -12,7 +12,6 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Spinner;
 
-import robotic.arm.Motor.Direction;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.custom.ViewForm;
@@ -86,7 +85,7 @@ public class RoboticArmInterface {
 		button.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseDown(MouseEvent arg0) {
-                    scheduleTask(new Motor(4, Direction.FORWARD));
+                    scheduleTask(new Motor(4, Motor.FORWARD));
             }
 
             @Override
@@ -101,7 +100,7 @@ public class RoboticArmInterface {
 		button_1.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseDown(MouseEvent arg0) {
-                    scheduleTask(new Motor(4, Direction.BACKWARD));
+                    scheduleTask(new Motor(4, Motor.BACKWARD));
             }
 
             @Override
@@ -128,7 +127,7 @@ public class RoboticArmInterface {
 		button_4.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseDown(MouseEvent arg0) {
-                    scheduleTask(new Motor(2, Direction.FORWARD));
+                    scheduleTask(new Motor(2, Motor.FORWARD));
             }
 
             @Override
@@ -143,7 +142,7 @@ public class RoboticArmInterface {
 		button_5.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseDown(MouseEvent arg0) {
-                    scheduleTask(new Motor(2, Direction.BACKWARD));
+                    scheduleTask(new Motor(2, Motor.BACKWARD));
             }
 
             @Override
@@ -158,7 +157,7 @@ public class RoboticArmInterface {
 		button_6.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseDown(MouseEvent arg0) {
-                    scheduleTask(new Motor(3, Direction.FORWARD));
+                    scheduleTask(new Motor(3, Motor.FORWARD));
             }
 
             @Override
@@ -173,7 +172,7 @@ public class RoboticArmInterface {
 		button_7.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseDown(MouseEvent arg0) {
-                    scheduleTask(new Motor(3, Direction.BACKWARD));
+                    scheduleTask(new Motor(3, Motor.BACKWARD));
             }
 
             @Override
@@ -192,7 +191,7 @@ public class RoboticArmInterface {
 		button_8.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseDown(MouseEvent arg0) {
-                    scheduleTask(new Motor(1, Direction.BACKWARD));
+                    scheduleTask(new Motor(1, Motor.BACKWARD));
             }
 
             @Override
@@ -207,7 +206,7 @@ public class RoboticArmInterface {
 		button_9.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseDown(MouseEvent arg0) {
-                    scheduleTask(new Motor(1, Direction.FORWARD));
+                    scheduleTask(new Motor(1, Motor.FORWARD));
             }
 
             @Override
@@ -254,11 +253,15 @@ public class RoboticArmInterface {
 			public void mouseDown(MouseEvent arg0) {
 				
 				// Start the server class
-				RoboticArmServer server = new RoboticArmServer(Integer.parseInt(textfieldPort.getText()));
-				if (server.start())
+				try	{
+					RoboticArmServer server = new RoboticArmServer(Integer.parseInt(textfieldPort.getText()));
 					lblServerStatus.setText("Server started");
-				else
+				}
+				catch (Exception e)	{
 					lblServerStatus.setText("Unable to start");
+					System.err.println("Exception starting server:");
+					e.printStackTrace();
+				}
 				
 			}
 		});

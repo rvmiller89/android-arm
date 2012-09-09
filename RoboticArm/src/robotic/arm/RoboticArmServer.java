@@ -4,11 +4,14 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-public class RoboticArmServer {
+import com.robotic.arm.Command;
+
+public class RoboticArmServer extends Thread{
 	
+	public static final int DEFAULT_SPEED = 75;
+	
+	private ServerSocket socket;
 	private MotionTimer task;
-	private ServerSocket s;
-	private int port;
 	
 	/**
 	 * Schedules an event to move the motor according to the byte-encoded
@@ -30,64 +33,86 @@ public class RoboticArmServer {
 	}
 
 
-	public RoboticArmServer(int port) {
-		
-		this.port = port;
-
+	public RoboticArmServer(int port) throws Exception {
+		socket = new ServerSocket(port);
+		System.out.println("Server listening on port " + port);
+	    this.start();
 	}
 	
-	public boolean start()	{
-		try
-		{
-			s = new ServerSocket(port);
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-			return false;
-		}
+	public void run()	{
+		while(true) {
+			try {
+				System.out.println("Waiting for connections.");
+				Socket client = socket.accept();
+		        System.out.println("Accepted a connection from: "+
+		        		client.getInetAddress());
+		        Connection c = new Connection(client);
+		       } catch(Exception e) {}
+			}
+	}
+
+	public class Connection extends Thread {
+		private Socket client = null;
+		private ObjectInputStream input = null;
+		private ObjectOutputStream output = null;
+		
+		public Connection(Socket clientSocket) {
+			client = clientSocket;
+			try {
+				input = new ObjectInputStream(client.getInputStream());
+				output = new ObjectOutputStream(client.getOutputStream());
+			} 
+			catch(Exception e1) { 
+				try {
+					client.close();
+				}	
+				catch(Exception e) {
+					System.out.println(e.getMessage());
+				}
+				return;
+			}
 			
-			
-		Thread thread = new Thread(new Runnable() {
-			public void run() {
-				try
-				{
-					while (true)
-					{
-						// Wait for client connection
-						Socket incoming = s.accept();
-						
-						try
-						{
-							InputStream inStream = incoming.getInputStream();
-							
-							Scanner in = new Scanner(inStream);
-							
-							System.out.println("Client Connected");
-							
-							while (true)
-							{
-								String input = in.next();
-								System.out.println("Recvd: " + input);
-								if (input.trim().equals("disconnect"))
-									break;
-							}
-						}
-						finally
-						{
-							System.out.println("Client disconnected");
-							incoming.close();
+			this.start();
+		}
+		
+		public void run()	{
+			while (true)
+			{
+				try	{
+					System.out.println("Waiting for command");
+					Command cmd = (Command) input.readObject();
+					System.out.println("Command received");
+					if (cmd.type == Command.Type.DISCONNECT)	{
+						System.out.println("Command: Disconnect");
+						break;
+					}
+					else if (cmd.type == Command.Type.MOTOR_START)	{
+						if (cmd.motor != null)	{
+							Motor motor = new Motor(cmd.motor.id, cmd.motor.direction);
+							scheduleTask(motor, DEFAULT_SPEED);
+							System.out.println("Command: Motor " + motor.id);
 						}
 					}
+					else if (cmd.type == Command.Type.MOTOR_STOP)	{
+						task.stop();
+					}
+					else	{
+						System.err.println("Unrecognized command type");
+					}
 				}
-				catch (IOException e)
-				{
+				catch (Exception e)	{
 					e.printStackTrace();
 				}
-			}
-		});
-	
-		return true;
-	}
+			}//while
+			
+			try {
+				input.close();
+				output.close();
+				client.close();
+			} catch (IOException e) {
 
+			}
+		}
+	}
+	
 }
