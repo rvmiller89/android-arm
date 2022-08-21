@@ -1,7 +1,7 @@
 # android-arm
 Android-controlled robotic arm using Arduino.
 
-![Java GUI to control robotic arm](https://github.com/rvmiller89/android-arm/raw/master/arm.png)
+![Java GUI to control robotic arm](arm.png)
 
 ## You will need:
 (1) OWI Robotic Arm (http://www.owirobots.com/cart/catalog/OWI-535-ROBOTIC-ARM-EDGE-KIT-87.html)
